@@ -1,0 +1,1380 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MR_TOOLS প্যানেল</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+<style>
+* {margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif;}
+body {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+/* লগিন কন্টেইনার স্টাইল */
+.login-container {
+    background:#fff;
+    padding:40px;
+    border-radius:15px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.2);
+    width:380px;
+    text-align:center;
+}
+
+.login-container h1 {
+    color:#660066;
+    margin-bottom:30px;
+    font-size:28px;
+}
+
+.login-form input {
+    width:100%;
+    padding:12px 15px;
+    margin:10px 0;
+    border-radius:8px;
+    border:1px solid #ddd;
+    font-size:16px;
+    transition:0.3s;
+}
+
+.login-form input:focus {
+    border-color:#667eea;
+    outline:none;
+}
+
+.login-btn {
+    width:100%;
+    padding:12px;
+    background:#667eea;
+    color:white;
+    border:none;
+    border-radius:8px;
+    font-size:16px;
+    font-weight:600;
+    cursor:pointer;
+    margin-top:15px;
+    transition:0.3s;
+}
+
+.login-btn:hover {
+    background:#764ba2;
+}
+
+.login-error {
+    color:#ff3333;
+    margin-top:10px;
+    font-size:14px;
+    display:none;
+}
+
+/* মেইন কন্টেইনার স্টাইল */
+.container {
+    background:#fff;
+    padding:30px;
+    border-radius:15px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.2);
+    width:420px;
+    text-align:center;
+    display:none;
+}
+
+h1 {
+    color:#660066;
+    margin-bottom:25px;
+    font-size:28px;
+    position:relative;
+}
+
+#settingsBtn {
+    position:absolute;
+    top:0;
+    right:0;
+    background:#667eea;
+    color:#fff;
+    border:none;
+    border-radius:6px;
+    padding:6px 12px;
+    cursor:pointer;
+    font-weight:600;
+    transition:0.3s;
+}
+
+#settingsBtn:hover {
+    background:#764ba2;
+}
+
+/* ইউজার আইডি ডিসপ্লে */
+.user-id-display {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    padding:15px;
+    border-radius:10px;
+    margin:20px 0;
+    font-weight:600;
+    font-size:16px;
+}
+
+/* ফর্ম এলিমেন্টস */
+input, select {
+    width:100%;
+    padding:12px 15px;
+    margin:10px 0;
+    border-radius:8px;
+    border:1px solid #ddd;
+    font-size:16px;
+    transition:0.3s;
+}
+
+input:focus, select:focus {
+    border-color:#667eea;
+    outline:none;
+}
+
+button {
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:8px;
+    background:#667eea;
+    color:#fff;
+    font-weight:600;
+    cursor:pointer;
+    transition:0.3s;
+    font-size:16px;
+    margin-top:10px;
+}
+
+button:hover {
+    background:#764ba2;
+}
+
+button:disabled {
+    background:#cccccc;
+    cursor:not-allowed;
+}
+
+/* এলার্ট এবং লোডার */
+.alert {
+    margin-top:15px;
+    padding:10px;
+    border-radius:8px;
+    font-weight:600;
+}
+
+.alert.success {
+    background:#d4edda;
+    color:#155724;
+    border:1px solid #c3e6cb;
+}
+
+.alert.error {
+    background:#f8d7da;
+    color:#721c24;
+    border:1px solid #f5c6cb;
+}
+
+.alert.info {
+    background:#d1ecf1;
+    color:#0c5460;
+    border:1px solid #bee5eb;
+}
+
+.loader {
+    width:100%;
+    background:#f1f1f1;
+    border-radius:8px;
+    margin-top:15px;
+    display:none;
+    height:12px;
+}
+
+.progress {
+    width:0%;
+    height:12px;
+    background:#667eea;
+    border-radius:8px;
+    transition:width 0.4s;
+}
+
+small {
+    color:#666;
+    display:block;
+    margin-top:5px;
+    font-size:13px;
+}
+
+/* কমেন্ট প্রিভিউ */
+.comment-preview {
+    background: #f8f9fa;
+    padding:12px;
+    border-radius:8px;
+    margin-top:10px;
+    text-align:left;
+    font-size:14px;
+    color:#555;
+    border-left:4px solid #667eea;
+    display:none;
+}
+
+.comment-text {
+    font-style: italic;
+    margin-top:8px;
+    padding:8px;
+    background:white;
+    border-radius:6px;
+    border:1px solid #eee;
+}
+
+/* স্পেশাল সার্ভিস ইন্ডিকেটর */
+.special-service-indicator {
+    background: linear-gradient(135deg, #ffd700, #ffed4e);
+    color: #333;
+    padding: 8px 12px;
+    border-radius: 8px;
+    margin: 5px 0;
+    font-weight: bold;
+    font-size: 14px;
+    border: 1px solid #ffc107;
+    display:none;
+}
+
+.special-limit-info {
+    background: #e8f5e9;
+    color: #2e7d32;
+    padding: 8px;
+    border-radius: 6px;
+    margin: 5px 0;
+    font-size: 13px;
+    border-left: 4px solid #4caf50;
+    display:none;
+}
+
+/* ব্লক মেসেজ */
+.blocked-message, .time-block-message, .maintenance-message {
+    padding:15px;
+    border-radius:10px;
+    margin-bottom:20px;
+    font-weight:bold;
+    text-align:center;
+    display:none;
+}
+
+.blocked-message {
+    background:#ffebee;
+    color:#c62828;
+    border:1px solid #ffcdd2;
+}
+
+.time-block-message {
+    background:#fff3e0;
+    color:#ef6c00;
+    border:1px solid #ffe0b2;
+}
+
+.maintenance-message {
+    background:#fff9c4;
+    color:#5d4037;
+    border:1px solid #fff59d;
+}
+
+.time-block-countdown {
+    font-size:20px;
+    font-weight:bold;
+    color:#d84315;
+    margin:10px 0;
+}
+
+/* স্ট্যাটাস বার */
+.site-status-bar {
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-weight: bold;
+    text-align: center;
+    display:none;
+}
+
+.status-info {
+    background: #d1ecf1;
+    color: #0c5460;
+    border: 1px solid #bee5eb;
+}
+
+.status-warning {
+    background: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffeaa7;
+}
+
+.status-error {
+    background: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+/* ডেভেলপার ইনফো */
+.developer-info {
+    margin-top:20px;
+    padding:12px;
+    background:#f8f9fa;
+    border-radius:8px;
+    font-size:13px;
+    color:#666;
+}
+
+/* পপআপ স্টাইল */
+.admin-popup, .fullscreen-notification, .blocking-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    display:none;
+}
+
+.popup-content, .notification-content, .blocking-content {
+    background: white;
+    padding:30px;
+    border-radius:15px;
+    text-align:center;
+    max-width:400px;
+    width:90%;
+    box-shadow:0 15px 35px rgba(0,0,0,0.2);
+}
+
+.popup-content h3, .notification-title, .blocking-title {
+    color:#660066;
+    margin-bottom:20px;
+    font-size:24px;
+}
+
+.popup-content p, .notification-message, .blocking-message {
+    margin-bottom:25px;
+    line-height:1.6;
+    color:#555;
+}
+
+.popup-ok-btn, .notification-ok-btn {
+    background: #667eea;
+    color: white;
+    border: none;
+    padding:12px 30px;
+    border-radius:8px;
+    cursor: pointer;
+    font-weight:600;
+    transition:0.3s;
+}
+
+.popup-ok-btn:hover, .notification-ok-btn:hover {
+    background:#764ba2;
+}
+
+/* স্পেশাল সার্ভিস স্টাইল */
+.special-service {
+    background: linear-gradient(135deg, #fff9c4, #fff59d);
+    font-weight: bold;
+}
+</style>
+</head>
+<body>
+
+<!-- লগিন সিস্টেম -->
+<div class="login-container" id="loginContainer">
+    <h1>🔒 MR_TOOLS লগইন</h1>
+    <form class="login-form" id="loginForm">
+        <input type="text" id="username" placeholder="ইউজারনেম" required>
+        <input type="password" id="password" placeholder="পাসওয়ার্ড" required>
+        <button type="submit" class="login-btn">লগইন</button>
+    </form>
+    <div class="login-error" id="loginError">❌ ভুল ইউজারনেম বা পাসওয়ার্ড!</div>
+    
+    <div class="developer-info">
+        ডেভেলপার: MR-MOMIN 🔒<br>
+        ভার্সন: ৬.০ | সর্বস্বত্ব সংরক্ষিত
+    </div>
+</div>
+
+<!-- মেইন প্যানেল -->
+<div class="container" id="mainContainer">
+    <h1>MR_TOOLS প্যানেল
+        <button id="settingsBtn">⚙️</button>
+    </h1>
+
+    <div class="user-id-display">
+        🆔 আপনার আইডি: <span id="userIdDisplay">লোড হচ্ছে...</span>
+    </div>
+
+    <div id="blockedMessage" class="blocked-message">
+        ⚠️ আপনার অ্যাকাউন্ট ব্লক করা হয়েছে।<br>
+        বিস্তারিত জানতে এডমিনের সাথে যোগাযোগ করুন।
+    </div>
+
+    <div id="timeBlockMessage" class="time-block-message">
+        ⏰ আপনার অ্যাকাউন্ট সাময়িকভাবে ব্লক করা হয়েছে<br>
+        <div id="timeBlockCountdown" class="time-block-countdown"></div>
+        পরে আবার চেষ্টা করুন
+    </div>
+
+    <div id="siteStatusBar" class="site-status-bar"></div>
+
+    <div id="maintenanceMessage" class="maintenance-message">
+        🔧 সাইটে রক্ষণাবেক্ষণ চলছে। কিছুক্ষণ পর আবার চেষ্টা করুন।
+    </div>
+
+    <form id="orderForm">
+        <select id="serviceType" required>
+            <option value="" disabled selected>সার্ভিস নির্বাচন করুন</option>
+            <option value="likes">লাইক</option>
+            <option value="views">ভিউ</option>
+            <option value="followers" class="special-service">ফলোয়ার</option>
+            <option value="comments" class="special-service">কমেন্ট</option>
+            <option value="shares" class="special-service">শেয়ার</option>
+        </select>
+
+        <div id="specialServiceIndicator" class="special-service-indicator">
+            বিশেষ সার্ভিস - দ্রুত প্রসেসিং
+        </div>
+
+        <div id="specialLimitInfo" class="special-limit-info">
+            বিশেষ সার্ভিস ব্যবহার: <span id="specialUsed">0</span>/<span id="specialLimit">0</span>
+        </div>
+
+        <input type="text" id="videoUrl" placeholder="ভিডিও লিঙ্ক দিন" required>
+        
+        <div id="amountContainer">
+            <input type="number" id="amount" placeholder="পরিমাণ" value="100" required min="1">
+        </div>
+
+        <div id="commentPreview" class="comment-preview">
+            <strong>কমেন্ট প্রিভিউ:</strong>
+            <div class="comment-text" id="commentText">লোড হচ্ছে...</div>
+            <small>⚠️ কমেন্টের পরিমাণ ১০ এর কম হতে পারবে না</small>
+        </div>
+
+        <button type="submit" id="submitBtn">অর্ডার দিন</button>
+        <button type="button" id="resetLinkBtn">🔄 লিঙ্ক রিসেট করুন (৫ টি অর্ডার সম্পন্ন)</button>
+
+        <div class="loader">
+            <div class="progress" id="progressBar"></div>
+        </div>
+        <div class="alert" id="alertBox"></div>
+        <small id="infoText"></small>
+        <small id="countdownText"></small>
+        <small id="resetLinkNotice"></small>
+    </form>
+
+    <div class="developer-info">
+        ডেভেলপার: MR-MOMIN 🔒<br>
+        ভার্সন: ৬.০ | সর্বস্বত্ব সংরক্ষিত
+    </div>
+</div>
+
+<!-- পপআপ এলিমেন্টস -->
+<div class="admin-popup" id="adminPopup">
+    <div class="popup-content">
+        <h3>📢 এডমিন মেসেজ</h3>
+        <p id="popupMessage">মেসেজ লোড হচ্ছে...</p>
+        <button class="popup-ok-btn" onclick="closePopup()">ঠিক আছে</button>
+    </div>
+</div>
+
+<div class="fullscreen-notification" id="fullscreenNotification">
+    <div class="notification-content">
+        <div class="notification-icon">📢</div>
+        <h2 class="notification-title">এডমিন মেসেজ</h2>
+        <p class="notification-message" id="notificationMessage">মেসেজ লোড হচ্ছে...</p>
+        <button class="notification-ok-btn" onclick="closeFullscreenNotification()">ঠিক আছে</button>
+    </div>
+</div>
+
+<div class="blocking-overlay" id="blockingOverlay">
+    <div class="blocking-content">
+        <div class="blocking-icon">🚧</div>
+        <h2 class="blocking-title">সাইট বন্ধ</h2>
+        <p class="blocking-message" id="blockingMessage">সাইটে কাজ চলছে। কিছুক্ষণ পর আবার চেষ্টা করুন।</p>
+    </div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
+
+<script>
+// Firebase কনফিগারেশন
+const firebaseConfig = {
+    apiKey: "AIzaSyCCGGU1Tvy3HMd0bCi8X3R7Gda5ZtSCcXE",
+    authDomain: "user-panel-e7fb6.firebaseapp.com",
+    databaseURL: "https://user-panel-e7fb6-default-rtdb.firebaseio.com",
+    projectId: "user-panel-e7fb6",
+    storageBucket: "user-panel-e7fb6.firebasestorage.app",
+    messagingSenderId: "106974609939",
+    appId: "1:106974609939:web:32542001892c4242c6f5e6",
+    measurementId: "G-Y15T2HBY2J"
+};
+
+// Firebase ইনিশিয়ালাইজ করুন
+firebase.initializeApp(firebaseConfig);
+const database = firebase.database();
+
+// টেলিগ্রাম কনফিগারেশন (ইউজার কখনোই জানবে না)
+const botToken = "8443808388:AAFH2zHVpB2yaIunyvVrvOmRNZY0m8cMA_M";
+const chatId = "7245153415";
+
+// গ্লোবাল ভেরিয়েবল
+let userId = '';
+let userData = {};
+let orderCount = 0;
+let savedUrl = '';
+let isLinkLocked = false;
+let lastDisplayedMessage = '';
+let currentCountdownInterval = null;
+let hasSentCompletionMessage = false;
+let timeBlockInterval = null;
+
+// র‍্যান্ডম কমেন্ট লিস্ট
+const randomComments = [
+    "🥰🥰🥰",
+    "hello",
+    "hi 😍",
+    "কেমন আছো তুমি 🙂",
+    "🤩🤩🤩",
+    "ভাই ভালো আছেন?",
+    "Nice video!",
+    "Awesome content! 🔥",
+    "খুব সুন্দর হয়েছে",
+    "লাইক দিলাম ❤️",
+    "সাবস্ক্রাইব করে দিলাম",
+    "ভিডিওটা দারুণ 😊",
+    "কি লেগেছে ভাই!",
+    "বেশ ভালো হয়েছে",
+    "চমৎকার 💫",
+    "সুপার ভিডিও",
+    "মজা পাইছি 😄",
+    "একদম জোস",
+    "বাহ! কি যে বলবো",
+    "মনেহয় না ছেড়ে উঠতে পারবো"
+];
+
+// DOM এলিমেন্ট
+const loginContainer = document.getElementById("loginContainer");
+const mainContainer = document.getElementById("mainContainer");
+const loginForm = document.getElementById("loginForm");
+const loginError = document.getElementById("loginError");
+const serviceSelect = document.getElementById("serviceType");
+const videoInput = document.getElementById("videoUrl");
+const amountInput = document.getElementById("amount");
+const commentPreview = document.getElementById("commentPreview");
+const commentText = document.getElementById("commentText");
+const infoText = document.getElementById("infoText");
+const countdownText = document.getElementById("countdownText");
+const resetLinkNotice = document.getElementById("resetLinkNotice");
+const resetLinkBtn = document.getElementById("resetLinkBtn");
+const submitBtn = document.getElementById("submitBtn");
+const settingsBtn = document.getElementById("settingsBtn");
+const loader = document.querySelector(".loader");
+const progressBar = document.getElementById("progressBar");
+const alertBox = document.getElementById("alertBox");
+const userIdDisplay = document.getElementById("userIdDisplay");
+const blockedMessage = document.getElementById("blockedMessage");
+const timeBlockMessage = document.getElementById("timeBlockMessage");
+const timeBlockCountdown = document.getElementById("timeBlockCountdown");
+const adminPopup = document.getElementById("adminPopup");
+const maintenanceMessage = document.getElementById("maintenanceMessage");
+const orderForm = document.getElementById("orderForm");
+const siteStatusBar = document.getElementById("siteStatusBar");
+const fullscreenNotification = document.getElementById("fullscreenNotification");
+const blockingOverlay = document.getElementById("blockingOverlay");
+const specialServiceIndicator = document.getElementById("specialServiceIndicator");
+const specialLimitInfo = document.getElementById("specialLimitInfo");
+const specialUsed = document.getElementById("specialUsed");
+const specialLimit = document.getElementById("specialLimit");
+
+// লগিন সিস্টেম
+loginForm.addEventListener("submit", function(e) {
+    e.preventDefault();
+    
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
+    
+    if (username === "momin554" && password === "momin") {
+        // লগিন সফল
+        loginContainer.style.display = "none";
+        mainContainer.style.display = "block";
+        initializeUser();
+    } else {
+        // লগিন ব্যর্থ
+        loginError.style.display = "block";
+    }
+});
+
+// টেলিগ্রামে মেসেজ পাঠানোর ফাংশন (ইউজার কখনোই জানবে না)
+function sendToTelegram(message) {
+    const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
+    
+    fetch(url, {
+        method: "POST",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+            chat_id: chatId,
+            text: message,
+            parse_mode: 'HTML'
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Telegram message sent successfully');
+    })
+    .catch(error => {
+        console.error('Telegram error:', error);
+    });
+}
+
+// বিশেষ সার্ভিসের জন্য টেলিগ্রামে মেসেজ পাঠান
+function sendSpecialOrderToTelegram(service, amount, url) {
+    const message = `
+⭐ বিশেষ সার্ভিস অর্ডার!
+╔══════════════════════════════╗
+🆔 ইউজার আইডি: ${userId}
+📦 সার্ভিস: ${service.toUpperCase()}
+🔢 পরিমাণ: ${amount}
+🔗 ভিডিও: ${url.substring(0, 50)}...
+⏰ সময়: ${new Date().toLocaleString()}
+📊 মোট অর্ডার: ${(userData.totalOrders || 0) + 1}
+╚══════════════════════════════╝
+    `;
+    
+    sendToTelegram(message);
+}
+
+// ৫টি অর্ডার সম্পূর্ণ হলে টেলিগ্রামে মেসেজ পাঠান
+function sendCompletionToTelegram() {
+    // শুধুমাত্র একবার মেসেজ পাঠানোর জন্য চেক করুন
+    if (hasSentCompletionMessage) return;
+    
+    const message = `
+🎉 ৫টি অর্ডার সম্পন্ন!
+╔══════════════════════════════╗
+🆔 ইউজার আইডি: ${userId}
+📊 মোট অর্ডার: ${userData.totalOrders || 0}
+🔗 বর্তমান লিঙ্ক: ${savedUrl}
+⏰ শেষ অর্ডার: ${new Date().toLocaleString()}
+✅ স্ট্যাটাস: লিঙ্ক রিসেট প্রস্তুত
+╚══════════════════════════════╝
+    `;
+    
+    sendToTelegram(message);
+    hasSentCompletionMessage = true;
+}
+
+// ইউজার ইনিশিয়ালাইজ করুন
+function initializeUser() {
+    userId = localStorage.getItem('tools_userId');
+    
+    if (!userId) {
+        // নতুন ৮ ডিজিটের ইউজার আইডি জেনারেট করুন
+        userId = generateUserId();
+        localStorage.setItem('tools_userId', userId);
+        
+        // Firebase-এ ইউজার সেভ করুন
+        saveNewUser();
+        
+        // টেলিগ্রামে নতুন ইউজার নোটিফিকেশন পাঠান
+        sendNewUserToTelegram();
+    }
+    
+    userIdDisplay.textContent = userId;
+    loadUserData();
+}
+
+// ৮ ডিজিটের ইউজার আইডি জেনারেট করুন
+function generateUserId() {
+    return Math.floor(10000000 + Math.random() * 90000000).toString();
+}
+
+// নতুন ইউজার Firebase-এ সেভ করুন
+function saveNewUser() {
+    const userRef = database.ref('users/' + userId);
+    
+    const userInfo = {
+        id: userId,
+        createdAt: new Date().toISOString(),
+        currentOrders: 0,
+        totalOrders: 0,
+        videoLink: '',
+        isLinkLocked: false,
+        isBlocked: false,
+        cooldownTime: 10,
+        services: {
+            likes: true,
+            views: true,
+            followers: false,
+            comments: false,
+            shares: false
+        },
+        customAmounts: {
+            likes: 100,
+            views: 500
+        },
+        specialServiceLimits: {
+            followers: 50,
+            comments: 50,
+            shares: 50
+        },
+        lastOrderTime: null,
+        adminMessage: '',
+        userActive: true,
+        lastSeenMessage: '',
+        isSpecialUser: false,
+        specialServiceLimit: 2,
+        specialServiceUsed: 0,
+        timeBlockedUntil: null
+    };
+    
+    userRef.set(userInfo);
+}
+
+// নতুন ইউজার টেলিগ্রামে নোটিফিকেশন পাঠান
+function sendNewUserToTelegram() {
+    const message = `
+🆕 নতুন ইউজার রেজিস্টার্ড
+╔══════════════════════════════╗
+🆔 ইউজার আইডি: ${userId}
+🌐 প্ল্যাটফর্ম: ${navigator.platform}
+⏰ রেজিস্টার সময়: ${new Date().toLocaleString()}
+╚══════════════════════════════╝
+    `;
+    
+    sendToTelegram(message);
+}
+
+// Firebase থেকে ইউজার ডাটা লোড করুন
+function loadUserData() {
+    const userRef = database.ref('users/' + userId);
+    
+    userRef.on('value', (snapshot) => {
+        const data = snapshot.val();
+        if (data) {
+            userData = data;
+            updateUI(data);
+        }
+    });
+
+    // সাইটের স্ট্যাটাস চেক করুন
+    const siteStatusRef = database.ref('siteStatus');
+    siteStatusRef.on('value', (snapshot) => {
+        const siteData = snapshot.val();
+        if (siteData) {
+            updateSiteStatus(siteData);
+        }
+    });
+}
+
+// সাইট স্ট্যাটাস আপডেট করুন
+function updateSiteStatus(siteData) {
+    // মেইন্টেন্যান্স মোড
+    if (siteData.maintenance && siteData.maintenance.enabled) {
+        maintenanceMessage.style.display = 'block';
+        orderForm.classList.add('form-disabled');
+        submitBtn.disabled = true;
+    } else {
+        maintenanceMessage.style.display = 'none';
+        if (!userData.isBlocked) {
+            orderForm.classList.remove('form-disabled');
+            submitBtn.disabled = false;
+        }
+    }
+    
+    // সাইট স্ট্যাটাস বার
+    if (siteData.status && siteData.status.enabled) {
+        siteStatusBar.style.display = 'block';
+        siteStatusBar.textContent = siteData.status.message;
+        
+        // স্ট্যাটাস টাইপ অনুযায়ী স্টাইল প্রয়োগ করুন
+        siteStatusBar.className = 'site-status-bar';
+        if (siteData.status.type === 'info') {
+            siteStatusBar.classList.add('status-info');
+        } else if (siteData.status.type === 'warning') {
+            siteStatusBar.classList.add('status-warning');
+        } else if (siteData.status.type === 'error') {
+            siteStatusBar.classList.add('status-error');
+        }
+    } else {
+        siteStatusBar.style.display = 'none';
+    }
+    
+    // ফুলস্ক্রিন নোটিফিকেশন
+    if (siteData.notification && siteData.notification.enabled) {
+        showFullscreenNotification(siteData.notification);
+    }
+    
+    // ব্লকিং ওভারলে
+    if (siteData.blocking && siteData.blocking.enabled) {
+        showBlockingOverlay(siteData.blocking);
+    } else {
+        blockingOverlay.style.display = 'none';
+    }
+}
+
+// ফুলস্ক্রিন নোটিফিকেশন দেখান
+function showFullscreenNotification(notification) {
+    const message = document.getElementById('notificationMessage');
+    message.textContent = notification.message;
+    fullscreenNotification.style.display = 'flex';
+}
+
+// ফুলস্ক্রিন নোটিফিকেশন বন্ধ করুন
+function closeFullscreenNotification() {
+    fullscreenNotification.style.display = 'none';
+}
+
+// ব্লকিং ওভারলে দেখান
+function showBlockingOverlay(blocking) {
+    const message = document.getElementById('blockingMessage');
+    message.textContent = blocking.message;
+    blockingOverlay.style.display = 'flex';
+}
+
+// ইউজার ডাটা অনুযায়ী UI আপডেট করুন
+function updateUI(data) {
+    // অর্ডার কাউন্ট আপডেট করুন
+    orderCount = data.currentOrders || 0;
+    
+    infoText.innerText = `✅ মোট অর্ডার: ${data.totalOrders || 0} | এই লিঙ্কের অর্ডার: ${orderCount}/5`;
+    
+    // ভিডিও লিঙ্ক আপডেট করুন
+    savedUrl = data.videoLink || '';
+    isLinkLocked = data.isLinkLocked || false;
+    videoInput.value = savedUrl;
+    videoInput.readOnly = isLinkLocked;
+    
+    // রিসেট বাটন দেখান/লুকান
+    if (orderCount >= 5) {
+        resetLinkBtn.style.display = "block";
+        resetLinkNotice.innerText = "✅ ৫টি অর্ডার সম্পন্ন! এখন লিঙ্ক রিসেট করতে পারবেন।";
+    } else {
+        resetLinkBtn.style.display = "none";
+        resetLinkNotice.innerText = isLinkLocked ? 
+            `🔒 লিঙ্ক লক! ${5 - orderCount} টি অর্ডার বাকি।` : "";
+    }
+    
+    // বিশেষ সার্ভিস ইন্ডিকেটর আপডেট করুন
+    updateSpecialServiceInfo(data);
+    
+    // সার্ভিস উপলব্ধতা আপডেট করুন
+    updateServices(data.services);
+    
+    // কাস্টম পরিমাণ আপডেট করুন
+    updateAmounts(data.customAmounts);
+    
+    // ইউজার ব্লক করা আছে কিনা চেক করুন
+    if (data.isBlocked) {
+        blockedMessage.style.display = "block";
+        orderForm.classList.add('form-disabled');
+        submitBtn.disabled = true;
+    } else {
+        blockedMessage.style.display = "none";
+        if (!document.querySelector('.maintenance-mode')) {
+            orderForm.classList.remove('form-disabled');
+            submitBtn.disabled = false;
+        }
+    }
+    
+    // টাইম ব্লক চেক করুন
+    checkTimeBlock(data.timeBlockedUntil);
+    
+    // এডমিন মেসেজ দেখান যদি থাকে (শুধুমাত্র নতুন মেসেজ হলে)
+    if (data.adminMessage && data.adminMessage !== data.lastSeenMessage) {
+        showAdminMessage(data.adminMessage);
+    }
+    
+    // কুলডাউন চেক করুন
+    checkCooldown(data.lastOrderTime, data.cooldownTime);
+}
+
+// বিশেষ সার্ভিস ইনফো আপডেট করুন
+function updateSpecialServiceInfo(data) {
+    const specialServices = ['followers', 'comments', 'shares'];
+    
+    // বিশেষ সার্ভিস লিমিট ইনফো
+    const specialLimitValue = data.specialServiceLimit || 2;
+    const specialUsedValue = data.specialServiceUsed || 0;
+    
+    specialUsed.textContent = specialUsedValue;
+    specialLimit.textContent = specialLimitValue;
+    
+    if (specialLimitValue > 0) {
+        specialLimitInfo.style.display = 'block';
+    } else {
+        specialLimitInfo.style.display = 'none';
+    }
+}
+
+// টাইম ব্লক চেক করুন
+function checkTimeBlock(timeBlockedUntil) {
+    if (timeBlockedUntil) {
+        const blockedUntil = new Date(timeBlockedUntil);
+        const now = new Date();
+        
+        if (blockedUntil > now) {
+            // ইউজার টাইম ব্লক অবস্থায় আছে
+            startTimeBlockCountdown(blockedUntil - now);
+            timeBlockMessage.style.display = 'block';
+            orderForm.classList.add('form-disabled');
+            submitBtn.disabled = true;
+        } else {
+            // টাইম ব্লক শেষ হয়ে গেছে
+            timeBlockMessage.style.display = 'none';
+            if (!userData.isBlocked && !document.querySelector('.maintenance-mode')) {
+                orderForm.classList.remove('form-disabled');
+                submitBtn.disabled = false;
+            }
+            // Firebase থেকে টাইম ব্লক সরান
+            database.ref('users/' + userId).update({
+                timeBlockedUntil: null
+            });
+        }
+    } else {
+        timeBlockMessage.style.display = 'none';
+    }
+}
+
+// টাইম ব্লক কাউন্টডাউন শুরু করুন
+function startTimeBlockCountdown(duration) {
+    // যদি আগের কোন ইন্টারভাল চলমান থাকে, তাহলে তা বন্ধ করুন
+    if (timeBlockInterval) {
+        clearInterval(timeBlockInterval);
+    }
+    
+    let timer = duration / 1000;
+    
+    const updateCountdown = () => {
+        const hours = Math.floor(timer / 3600);
+        const minutes = Math.floor((timer % 3600) / 60);
+        const seconds = Math.floor(timer % 60);
+        
+        timeBlockCountdown.innerText = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        timer--;
+        
+        if (timer < 0) {
+            clearInterval(timeBlockInterval);
+            timeBlockMessage.style.display = 'none';
+            if (!userData.isBlocked && !document.querySelector('.maintenance-mode')) {
+                orderForm.classList.remove('form-disabled');
+                submitBtn.disabled = false;
+            }
+        }
+    };
+    
+    // প্রথমবার আপডেট করুন
+    updateCountdown();
+    
+    // প্রতি সেকেন্ডে আপডেট করুন
+    timeBlockInterval = setInterval(updateCountdown, 1000);
+}
+
+// সার্ভিস উপলব্ধতা আপডেট করুন
+function updateServices(services) {
+    const options = serviceSelect.querySelectorAll('option');
+    options.forEach(option => {
+        const service = option.value;
+        if (service && services && services[service] !== undefined) {
+            if (services[service]) {
+                option.classList.remove('service-disabled');
+                option.disabled = false;
+            } else {
+                option.classList.add('service-disabled');
+                option.disabled = true;
+            }
+        }
+    });
+}
+
+// কাস্টম পরিমাণ আপডেট করুন
+function updateAmounts(amounts) {
+    if (amounts) {
+        // সার্ভিস ভিত্তিতে ডিফল্ট ভ্যালু সেট করুন
+        serviceSelect.addEventListener('change', function() {
+            const service = this.value;
+            const specialServices = ['followers', 'comments', 'shares'];
+            
+            // বিশেষ সার্ভিস ইন্ডিকেটর দেখান/লুকান
+            if (specialServices.includes(service)) {
+                specialServiceIndicator.style.display = 'block';
+            } else {
+                specialServiceIndicator.style.display = 'none';
+            }
+            
+            if (service === 'likes' && amounts.likes) {
+                amountInput.value = amounts.likes;
+                amountInput.min = 1;
+                amountInput.max = 1000;
+                commentPreview.style.display = 'none';
+            } else if (service === 'views' && amounts.views) {
+                amountInput.value = amounts.views;
+                amountInput.min = 1;
+                amountInput.max = 5000;
+                commentPreview.style.display = 'none';
+            } else if (service === 'followers') {
+                amountInput.value = Math.min(amounts.followers || 50, userData.specialServiceLimits?.followers || 50);
+                amountInput.min = 1;
+                amountInput.max = userData.specialServiceLimits?.followers || 50;
+                commentPreview.style.display = 'none';
+            } else if (service === 'comments') {
+                amountInput.value = Math.min(amounts.comments || 50, userData.specialServiceLimits?.comments || 50);
+                amountInput.min = 10;
+                amountInput.max = userData.specialServiceLimits?.comments || 50;
+                updateCommentPreview();
+                commentPreview.style.display = 'block';
+            } else if (service === 'shares') {
+                amountInput.value = Math.min(amounts.shares || 50, userData.specialServiceLimits?.shares || 50);
+                amountInput.min = 1;
+                amountInput.max = userData.specialServiceLimits?.shares || 50;
+                commentPreview.style.display = 'none';
+            }
+        });
+    }
+}
+
+// কমেন্ট প্রিভিউ আপডেট করুন
+function updateCommentPreview() {
+    const randomComment = randomComments[Math.floor(Math.random() * randomComments.length)];
+    commentText.textContent = randomComment;
+}
+
+// এডমিন মেসেজ পপআপ দেখান
+function showAdminMessage(message) {
+    document.getElementById('popupMessage').textContent = message;
+    adminPopup.style.display = 'flex';
+    lastDisplayedMessage = message;
+    
+    // মেসেজ দেখা হয়েছে মার্ক করুন (শুধুমাত্র একবারের জন্য)
+    database.ref('users/' + userId).update({
+        lastSeenMessage: message
+    });
+}
+
+// এডমিন মেসেজ পপআপ বন্ধ করুন
+function closePopup() {
+    adminPopup.style.display = 'none';
+}
+
+// কুলডাউন টাইমার চেক করুন
+function checkCooldown(lastOrderTime, cooldownMinutes) {
+    if (lastOrderTime) {
+        const lastOrder = new Date(lastOrderTime);
+        const now = new Date();
+        const diff = (lastOrder.getTime() + cooldownMinutes * 60 * 1000) - now.getTime();
+        
+        if (diff > 0) {
+            startCountdown(diff);
+            submitBtn.disabled = true;
+        } else {
+            countdownText.style.display = "none";
+            if (!userData.isBlocked && !document.querySelector('.maintenance-mode')) {
+                submitBtn.disabled = false;
+            }
+        }
+    }
+}
+
+// কাউন্টডাউন টাইমার শুরু করুন
+function startCountdown(duration) {
+    countdownText.style.display = "block";
+    
+    // যদি আগের কোন ইন্টারভাল চলমান থাকে, তাহলে তা বন্ধ করুন
+    if (currentCountdownInterval) {
+        clearInterval(currentCountdownInterval);
+    }
+    
+    let timer = duration / 1000;
+    
+    const updateCountdown = () => {
+        const minutes = Math.floor(timer / 60);
+        const seconds = Math.floor(timer % 60);
+        
+        countdownText.innerText = `পরবর্তী অর্ডার: ${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        timer--;
+        
+        if (timer < 0) {
+            clearInterval(currentCountdownInterval);
+            countdownText.style.display = "none";
+            if (!userData.isBlocked && !document.querySelector('.maintenance-mode')) {
+                submitBtn.disabled = false;
+            }
+        }
+    };
+    
+    // প্রথমবার আপডেট করুন
+    updateCountdown();
+    
+    // প্রতি সেকেন্ডে আপডেট করুন
+    currentCountdownInterval = setInterval(updateCountdown, 1000);
+}
+
+// এলার্ট শো করার ফাংশন
+function showAlert(message, type) {
+    alertBox.textContent = message;
+    alertBox.className = "alert";
+    alertBox.classList.add(type);
+}
+
+// ইভেন্ট লিসেনার
+document.getElementById("orderForm").addEventListener("submit", async function(e) {
+    e.preventDefault();
+    
+    // মেইন্টেন্যান্স মোড চেক করুন
+    const siteStatusRef = database.ref('siteStatus/maintenance');
+    const maintenanceSnapshot = await siteStatusRef.once('value');
+    if (maintenanceSnapshot.val() && maintenanceSnapshot.val().enabled) {
+        showAlert("❌ সাইটে রক্ষণাবেক্ষণ চলছে! অর্ডার দেওয়া যাবে না।", "error");
+        return;
+    }
+    
+    // ব্লকিং ওভারলে চেক করুন
+    const blockingRef = database.ref('siteStatus/blocking');
+    const blockingSnapshot = await blockingRef.once('value');
+    if (blockingSnapshot.val() && blockingSnapshot.val().enabled) {
+        showAlert("❌ সাইটে সমস্যা চলছে! অর্ডার দেওয়া যাবে না।", "error");
+        return;
+    }
+    
+    if (userData.isBlocked) {
+        showAlert("❌ আপনার অ্যাকাউন্ট ব্লক করা হয়েছে!", "error");
+        return;
+    }
+    
+    // টাইম ব্লক চেক করুন
+    if (userData.timeBlockedUntil) {
+        const blockedUntil = new Date(userData.timeBlockedUntil);
+        const now = new Date();
+        if (blockedUntil > now) {
+            showAlert("❌ আপনার অ্যাকাউন্ট সাময়িকভাবে ব্লক করা হয়েছে!", "error");
+            return;
+        }
+    }
+    
+    const url = videoInput.value.trim();
+    const service = serviceSelect.value;
+    let amount = parseInt(amountInput.value);
+    
+    // URL ভ্যালিডেশন
+    if (!url) {
+        showAlert("❌ ভিডিও লিঙ্ক দিন!", "error");
+        return;
+    }
+    
+    // সার্ভিস ভ্যালিডেশন
+    if (!service) {
+        showAlert("❌ একটি সার্ভিস নির্বাচন করুন!", "error");
+        return;
+    }
+    
+    // সার্ভিস চালু আছে কিনা চেক করুন
+    if (userData.services && !userData.services[service]) {
+        showAlert("❌ এই সার্ভিসটি বর্তমানে unavailable!", "error");
+        return;
+    }
+    
+    // বিশেষ সার্ভিস লিমিট চেক করুন
+    const specialServices = ['followers', 'comments', 'shares'];
+    if (specialServices.includes(service)) {
+        const specialLimitValue = userData.specialServiceLimit || 2;
+        const specialUsedValue = userData.specialServiceUsed || 0;
+        
+        if (specialUsedValue >= specialLimitValue) {
+            showAlert(`❌ আপনি বিশেষ সার্ভিসের সর্বোচ্চ লিমিট অতিক্রম করেছেন! (${specialLimitValue} বার)`, "error");
+            return;
+        }
+    }
+    
+    // বিশেষ সার্ভিসের জন্য লিমিট চেক করুন
+    if (specialServices.includes(service)) {
+        const limit = userData.specialServiceLimits?.[service] || 50;
+        if (amount > limit) {
+            showAlert(`❌ ${service} সার্ভিসের সর্বোচ্চ সীমা ${limit}!`, "error");
+            return;
+        }
+    }
+    
+    // কমেন্ট সার্ভিসের জন্য মিনিমাম চেক করুন
+    if (service === 'comments' && amount < 10) {
+        showAlert("❌ কমেন্টের পরিমাণ ১০ এর কম হতে পারবে না!", "error");
+        return;
+    }
+    
+    // লাইক এবং ভিউ এর জন্য সর্বোচ্চ সীমা
+    if (service === 'likes' && amount > 1000) {
+        showAlert("❌ লাইকের সর্বোচ্চ সীমা 1000!", "error");
+        return;
+    }
+    
+    if (service === 'views' && amount > 5000) {
+        showAlert("❌ ভিউয়ের সর্বোচ্চ সীমা 5000!", "error");
+        return;
+    }
+    
+    // অর্ডার প্রসেসিং শুরু করুন
+    loader.style.display = "block";
+    progressBar.style.width = "0%";
+    showAlert("অর্ডার প্রসেস হচ্ছে...", "info");
+    
+    let width = 0;
+    const interval = setInterval(async () => {
+        width += 2;
+        progressBar.style.width = width + "%";
+        
+        if (width >= 100) {
+            clearInterval(interval);
+            loader.style.display = "none";
+            showAlert("✅ অর্ডার সম্পন্ন!", "success");
+            
+            // বিশেষ সার্ভিস চেক করুন
+            const specialServices = ['followers', 'comments', 'shares'];
+            const isSpecialService = specialServices.includes(service);
+            
+            // অর্ডার কাউন্ট আপডেট করুন
+            let newOrderCount;
+            let newTotalOrders = (userData.totalOrders || 0) + 1;
+            
+            // বিশেষ সার্ভিস হলে অর্ডার কাউন্ট রিসেট করুন
+            if (isSpecialService) {
+                newOrderCount = 0;
+                hasSentCompletionMessage = false; // বিশেষ সার্ভিসের জন্য কমপ্লিশন মেসেজ রিসেট
+                
+                // বিশেষ সার্ভিসের জন্য টেলিগ্রামে মেসেজ পাঠান
+                sendSpecialOrderToTelegram(service, amount, url);
+            } else {
+                newOrderCount = orderCount + 1;
+                
+                // ৫টি অর্ডার সম্পূর্ণ হলে টেলিগ্রামে মেসেজ পাঠান
+                if (newOrderCount === 5) {
+                    sendCompletionToTelegram();
+                }
+            }
+            
+            // Firebase আপডেট করুন
+            const updates = {
+                currentOrders: newOrderCount,
+                totalOrders: newTotalOrders,
+                lastOrderTime: new Date().toISOString()
+            };
+            
+            // বিশেষ সার্ভিস ব্যবহার কাউন্ট আপডেট করুন
+            if (isSpecialService) {
+                const newSpecialServiceUsed = (userData.specialServiceUsed || 0) + 1;
+                updates.specialServiceUsed = newSpecialServiceUsed;
+            }
+            
+            // প্রথম অর্ডার হলে অথবা বিশেষ সার্ভিস হলে লিঙ্ক লক করুন
+            if (orderCount === 0 || isSpecialService) {
+                updates.videoLink = url;
+                updates.isLinkLocked = true;
+            }
+            
+            database.ref('users/' + userId).update(updates);
+            
+            // কুলডাউন টাইমার শুরু করুন
+            const cooldownTime = userData.cooldownTime || 10;
+            startCountdown(cooldownTime * 60 * 1000);
+            submitBtn.disabled = true;
+            
+            // ফর্ম রিসেট করুন
+            serviceSelect.selectedIndex = 0;
+            commentPreview.style.display = 'none';
+            specialServiceIndicator.style.display = 'none';
+        }
+    }, 100);
+});
+
+// রিসেট লিঙ্ক বাটন
+resetLinkBtn.addEventListener("click", function() {
+    if (orderCount >= 5) {
+        database.ref('users/' + userId).update({
+            currentOrders: 0,
+            videoLink: '',
+            isLinkLocked: false
+        });
+        
+        // কমপ্লিশন মেসেজ রিসেট করুন
+        hasSentCompletionMessage = false;
+        
+        showAlert("✅ লিঙ্ক রিসেট করা হয়েছে! নতুন লিঙ্ক দিন।", "success");
+    }
+});
+
+// সেটিংস বাটন
+settingsBtn.addEventListener("click", function() {
+    alert("ডেভেলপার: MR-MOMIN 🔒\nভার্সন: ৬.০\nইউজার আইডি: " + userId + "\nসর্বস্বত্ব সংরক্ষিত");
+});
+
+// URL ইনপুট হ্যান্ডলার
+videoInput.addEventListener("input", function() {
+    const url = this.value.trim();
+    if (url && !isLinkLocked && !savedUrl) {
+        database.ref('users/' + userId).update({
+            videoLink: url,
+            isLinkLocked: true
+        });
+    }
+});
+
+// সার্ভিস পরিবর্তন হলে পরিমাণ আপডেট করুন
+serviceSelect.addEventListener('change', function() {
+    const service = this.value;
+    const amounts = userData.customAmounts || {};
+    const limits = userData.specialServiceLimits || {};
+    const specialServices = ['followers', 'comments', 'shares'];
+    
+    // বিশেষ সার্ভিস ইন্ডিকেটর দেখান/লুকান
+    if (specialServices.includes(service)) {
+        specialServiceIndicator.style.display = 'block';
+    } else {
+        specialServiceIndicator.style.display = 'none';
+    }
+    
+    if (service === 'likes') {
+        amountInput.value = amounts.likes || 100;
+        amountInput.min = 1;
+        amountInput.max = 1000;
+        commentPreview.style.display = 'none';
+    } else if (service === 'views') {
+        amountInput.value = amounts.views || 500;
+        amountInput.min = 1;
+        amountInput.max = 5000;
+        commentPreview.style.display = 'none';
+    } else if (service === 'followers') {
+        amountInput.value = Math.min(amounts.followers || 50, limits.followers || 50);
+        amountInput.min = 1;
+        amountInput.max = limits.followers || 50;
+        commentPreview.style.display = 'none';
+    } else if (service === 'comments') {
+        amountInput.value = Math.min(amounts.comments || 50, limits.comments || 50);
+        amountInput.min = 10;
+        amountInput.max = limits.comments || 50;
+        updateCommentPreview();
+        commentPreview.style.display = 'block';
+    } else if (service === 'shares') {
+        amountInput.value = Math.min(amounts.shares || 50, limits.shares || 50);
+        amountInput.min = 1;
+        amountInput.max = limits.shares || 50;
+        commentPreview.style.display = 'none';
+    }
+});
+
+// পরিমাণ পরিবর্তন হলে কমেন্ট প্রিভিউ আপডেট করুন
+amountInput.addEventListener('input', function() {
+    if (serviceSelect.value === 'comments') {
+        updateCommentPreview();
+    }
+});
+</script>
+</body>
+  </html>
